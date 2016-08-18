@@ -1,0 +1,23 @@
+{
+  "name": "transtar-test",
+  "version": "0.0.1",
+  "authors": [
+    "François Agneray <francois.agneray@lam.fr>",
+    "Frederic Loth <frederic.loth@lam.fr>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angularjs": "~1.4.3",
+    "bootstrap": "~3.3.5",
+    "angular-bootstrap": "~0.13.0",
+    "font-awesome": "~4.4.0",
+    "angular-file-upload": "~2.1.3"
+  }
+}

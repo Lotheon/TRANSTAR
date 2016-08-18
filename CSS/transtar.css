@@ -1,0 +1,490 @@
+.btn-new-curve {
+    width: 100%;
+    font-size: large;
+
+}
+
+a[ng-click] {
+    cursor: pointer;
+}
+
+/* Dimensionnement du background écran d'accueil (page de login)*/
+.background {
+    width: auto;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    /*overflow: hidden;*/
+}
+
+/* Couleur de fond du modal-header */
+.modal-header{
+    background-color: #ED961C;
+}
+
+/* Couleur du titre du modal */
+.modal-title{
+    color: whitesmoke
+}
+
+/* pour fixer une taille à la modal */
+.newCurve-modal-window .modal-dialog {
+    width: 570px;
+}
+
+/* tabsize (pour fixer la largeur des onglets) */
+.tabsize{
+    width: 33.33%;
+}
+
+/* textAreaModalFile (pour fixer une taille au textArea)*/
+#textAreaModalFile
+{
+    height: 100px;
+    max-height: 100px;  
+}
+
+/* Alignement des labels pour mise en forme dans modal */
+label
+{
+    display: block;
+    width: 242px;
+    float: left;
+}
+
+/* Stylage d'un champs 'required' */
+/*:required:invalid {
+    border-color: #ff6666;
+    box-shadow: 0px 0px 7px 0px #ff6666;
+}*/
+
+/* Tous les placeholders en italique par défaut */
+::-webkit-input-placeholder {
+    font-style: italic;
+    font-size:12px;
+}
+:-moz-placeholder {
+    font-style: italic;
+    font-size:12px;
+}
+::-moz-placeholder {
+    font-style: italic;
+    font-size:12px;
+}
+:-ms-input-placeholder {  
+    font-style: italic;
+    font-size:12px;
+}
+
+/* Italique dans Select */
+/*    background-attachment: fixed;*/
+/*    background-position: left top;*/
+/*    background-size: cover;*/
+    
+option.italic {
+    font-style : italic;
+}
+
+/* fileUpload */  
+.fileUpload {
+    position: relative;
+    overflow: hidden;
+    margin: 0px;
+}
+.fileUpload input.upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+
+/*Bouton File HOVER*/
+.btnFile:hover {
+    background-color: #cccccc;
+    color: white;
+    border-color: #f4ac3e;
+    font-weight: bold;
+}
+
+.btnFile:hover .fondChamps {        /*fondChamps est balise enfant : obscurcir l'input avec le bouton*/
+    background-color: #cccccc;
+}
+
+/* DropZone */
+
+.dropzone {
+    width: 250px;
+    height: 45px;
+    border: 1px solid #ccc;
+    text-align: center;
+    padding: 30px;
+    margin: 20px;
+    font-family: Arial;
+}
+
+/*Bouton rond, div ronde*/     /*Non utilisé*/
+
+.rond{
+    08.
+    border-radius:50%;
+    width:100px;
+    height:100px;
+    background: linear-gradient(#f7f7f7, #e7e7e7);
+    box-shadow: 0px 3px 8px #aaa, inset 0px 2px 3px #fff;
+    border:none;
+    outline:none;
+    font: 18px Tahoma bold;
+    color: #a7a7a7;
+    text-shadow: 1px 1px 1px lighgrey;
+    margin:20px;
+}
+div.rond{
+    text-align:center;
+}
+div.rond span{
+    position:relative;
+    font-size:20px;
+    top:40px;
+}
+
+/*SIDEBAR*/
+.menu:hover {
+    width: 252px;                            /*largeur ouvert*/
+    overflow: visible;
+    position: fixed;
+}
+.menu {
+    background: #999999;                     /*Couleur du menu*/
+    border-right: 0px solid #000000;         /*Bordure*/
+    position: fixed;                         /*position fixée en hauteur, absolute pour scroller'*/
+    top: 50px;                               /*hauteur*/
+    bottom: 0px;
+    height: 100%;
+    left: 0;                                 /*Bordure à gauche (icônes ici ?)*/
+    width: 52px;                             /*largeur fermé*/
+    overflow: hidden;
+    -webkit-transition: width .01s linear;
+    transition: width .06s linear;           /*Vitesse de transition*/
+    -webkit-transform: translateZ(0) scale(1, 1);
+    z-index: 1;
+}
+.menu > ul { padding-left: 60px; }         /*Décalage du menu à droite lorsque fermé pour le rendre invisible*/
+.menu:hover ul { padding-left: 0; }
+.menu:hover .iconNewCurve { display: none; }
+.menu li {
+    position: relative;
+    display: block;
+    width: 250px;
+    overflow: hidden;
+}
+.menu li a {
+    border-collapse: collapse;
+    border-spacing: 0;
+    color: #fff;
+    display: block;
+    padding: 10px;
+    position: absolute;
+    text-decoration: none;
+    transition: all 0.1s linear 0s;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+}
+.menu li a:hover { background: #52527A; }  /*Couleur des éléments du menu au survol de la souris*/
+.iconNewCurve {
+    /* height: 4px;*/
+    /*  width: 30px;*/
+    /*  background: #fff;*/
+    /*  position: absolute;*/
+    top: 0px;
+    left: 7px;
+
+    /*position: relative;*/
+
+}
+.iconNewCurve:before, .iconNewCurve:after {
+    /*  background: #fff;*/
+    /*  content: "";*/
+    /*  height: 4px;*/
+
+    content: "\f01b";
+    /*content: "\f0aa";*/
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+    color: #fff;
+    font-size: 50px;
+    padding-right: 0.5em;
+    position: absolute;
+    top: 3px;
+    left: 3px;
+
+}
+.iconNewCurve:after { top: 3px; }
+
+/*FOOTER : PANELDOWN*/
+.panelDown {
+    position: fixed;
+    left: 55px;
+    bottom: 3px;
+    right: 3px;
+    height: 240px;
+    width: 100%;
+    background: white;
+}
+
+/*Range Slider "Line thickness"*/
+/*.range {
+    -webkit-appearance: none;
+    vertical-align: middle;
+    outline: none;
+    border: none;
+    padding: 0;
+    background: none;
+}
+
+.range::-webkit-slider-runnable-track {
+    background-color: #d7dbdd;
+    height: 6px;
+    border-radius: 3px;
+    border: 1px solid transparent;
+}
+
+.range[disabled]::-webkit-slider-runnable-track {
+    border: 1px solid #d7dbdd;
+    background-color: transparent;
+    opacity: 0.4;
+}
+
+.range::-moz-range-track {
+    background-color: #d7dbdd;
+    height: 6px;
+    border-radius: 3px;
+    border: none;
+}
+
+.range::-ms-track {
+    color: transparent;
+    border: none;
+    background: none;
+    height: 6px;
+}
+
+.range::-ms-fill-lower { 
+    background-color: #d7dbdd;
+    border-radius: 3px;
+}
+
+.range::-ms-fill-upper { 
+    background-color: #d7dbdd;
+    border-radius: 3px;
+}
+
+.range::-ms-tooltip { display: none;  display and visibility only  }
+
+.range::-moz-range-thumb {
+    border-radius: 20px;
+    height: 18px;
+    width: 18px;
+    border: none;
+    background: none;
+    background-color: #606670;
+}
+
+.range:active::-moz-range-thumb {
+    outline: none;
+}
+
+.range::-webkit-slider-thumb {
+    -webkit-appearance: none !important;
+    border-radius: 100%;
+    background-color: #606670;
+    height: 18px;
+    width: 18px;
+    margin-top: -7px;
+}
+
+.range[disabled]::-webkit-slider-thumb {
+    background-color: transparent;
+    border: 1px solid #d7dbdd;
+}
+
+.range:active::-webkit-slider-thumb {
+    outline: none;
+}
+
+.range::-ms-thumb { 
+    border-radius: 100%;
+    background-color: #606670;
+    height: 18px;
+    width: 18px; 
+    border: none;
+}
+
+.range:active::-ms-thumb {
+    border: none;
+}
+
+output {
+    border: 1px solid #d7dbdd;
+    color: #333;
+    font-family: 'Lato', sans-serif;
+    font-size: 12px;
+    padding: .4em .6em;
+    border-radius: 3px;
+    float: left;
+}
+
+.container--dark {
+    background-color: #11181d;
+
+    h6 {
+        color: #ccc;
+    }
+
+    .range::-webkit-slider-runnable-track {
+        background-color: #606670;
+    }
+
+    .range[disabled]::-webkit-slider-runnable-track {
+        border: 1px solid #606670;
+        background-color: transparent;
+    }
+
+    .range::-moz-range-track {
+        background-color: #606670;
+        border: none;
+    }
+
+    .range::-ms-fill-lower { 
+        background-color: #606670;
+    }
+
+    .range::-ms-fill-upper { 
+        background-color: #606670;
+    }
+
+    output {
+        border: 1px solid #2b3039;
+        color: #aaa;
+        font-family: 'Lato', sans-serif;
+        font-size: 12px;
+        padding: .4em .6em;
+        border-radius: 3px;
+    }
+
+    .range::-webkit-slider-thumb {
+        background-color: #aaa;
+        box-shadow: 0 0 5px rgba(0,0,0,.5);
+    }
+
+    .range[disabled]::-webkit-slider-thumb {
+        background-color: transparent;
+        border: 1px solid #606670;
+        box-shadow: none;
+    }
+
+    .range::-moz-range-thumb {
+        background-color: #aaa;
+    }
+
+    .range::-ms-thumb { 
+        background-color: #aaa;
+    }
+}*/
+
+
+/*TEST EFFET SUR TEXTE (horizontal, vertical, blur radius, spread radius, color)*/
+.textGraved { 
+    color: #f7f7f7;
+    text-shadow: 0px 0px 0px rgba(255,255,255,.1), -1px -1px 0px rgba(0,0,0,.3);
+}
+
+.textGravedDeep {
+    color: #f7f7f7;
+    text-shadow: 2px 2px 5px rgba(255,255,255,3), -2px -2px 2px rgba(0,0,0,0.5);
+}
+
+.textEmbossed {
+    text-shadow: -1px -1px 0px rgba(255,255,255,.5), 1px 1px 0px rgba(0,0,0,.5);
+}
+
+.shadowBox:hover {
+    color: white;
+    box-shadow: 1px 2px 5px 2px rgba(0,0,0,.4);
+    text-shadow: -2px -2px 15px rgba(255,255,255,10.0), 1px 1px 0px rgba(0,0,0,.3);  
+}
+
+.shadowBox:hover .spin {                         /*SPIN est balise enfant de SHADOWBOX*/
+  -webkit-animation: spin 0.5s 1 alternate;
+  -moz-animation: spin 0.5s 1 alternate;
+  -o-animation: spin 0.5s 1 alternate;
+  animation: spin 0.5s 1 alternate;
+}
+@-moz-keyframes spin {
+  0% {
+    -moz-transform: rotate(0deg);
+  }
+  100% {
+    -moz-transform: rotate(359deg);
+  }
+}
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(359deg);
+  }
+}
+@-o-keyframes spin {
+  0% {
+    -o-transform: rotate(0deg);
+  }
+  100% {
+    -o-transform: rotate(359deg);
+  }
+}
+@keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}
+
+/*PULSE EFFECT green button*/
+@-webkit-keyframes greenPulse {
+    from { background-color: #749a02; -webkit-box-shadow: 0 0 9px #333; }
+    50% { background-color: #91bd09; -webkit-box-shadow: 0 0 18px #91bd09; }
+    to { background-color: #749a02; -webkit-box-shadow: 0 0 9px #333; }
+}
+
+.greenPulseButton:hover {
+    -webkit-animation-name: greenPulse;
+    -webkit-animation-duration: 0.1s;
+    -webkit-animation-iteration-count: infinite;
+}
+
+/*PULSE EFFECT red text*/
+@-webkit-keyframes redPulse {
+    from { color: #FAEEEE; text-shadow: 0 0 18px #FF0000}
+    50% { color: #FF0000; text-shadow: 0 0 9px #990000}
+    to { color: #FAEEEE; text-shadow: 0 0 18px #FF0000}
+}
+.greenPulseButton:hover .redPulseEffect {                     /*redPulseEffect enfant de greenPulse*/
+    -webkit-animation-name: redPulse;
+    -webkit-animation-duration: 0.1s;
+    -webkit-animation-iteration-count: infinite;
+}

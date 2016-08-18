@@ -1,0 +1,111 @@
+
+<div class="modal-header" >
+    <h2 class="modal-title"><b class="textGraved">Upload a new file.</b></h2>
+</div>
+
+<div class="modal-body">
+
+    <!-- Onglets --> 
+    <tabset>
+
+        <!-- Onglet File -->
+        <tab select="file" class="tabsize">
+            <tab-heading>
+                <i class="fa fa-folder-open"> File</i>
+            </tab-heading>
+
+            <!-- Contenu de l'onglet File avec DropZone sur la div globale -->
+            <div class="modal-body" ng-controller="FormCtrl as vm" nv-file-drop uploader="vm.uploader">
+                <br/><br/>
+                <form style="box-shadow: none;" name="myForm" custom-on-drop="vm.clearQueue">
+
+
+                    <!-- Name (text input) -->
+                    <div>
+                        <label style="margin-top: -6px;" for="name"><h4 style="color:grey; font-size: 23px;">Name<animatecolor style="color:red; font-size: 15px;"> *</h4></label>
+                    <input ng-focus="vm.initService()" ng-click="vm.initService()" id="name" name="name" type="text" class="form-control" ng-model="vm.formfile.name" style="width: 260px;" placeholder="Required field (50 characters max.)" ng-maxlength="50" autofocus focus required><br/>
+                    </div>
+
+                    <!-- File -->
+                    <div >
+                        <label style="margin-top: -6px;" for="file"><h4 style="color:grey; font-size: 23px;">File<animatecolor style="color:red; font-size: 15px;"> *</h4></label>
+                        <div id="fileUpload" class="fileUpload btn btn-block btn-xs btnFile" style="width: 260px; height: 34px; border-color: #cccccc;">
+                            <input class='fondChamps' style="border:0px; border-right:1px solid grey; margin-top:5px; width: 175px;" id="filename" placeholder=" Choose your file" ng-model="vm.fileName" readonly required/>
+                            <span>&nbsp;&nbsp;&nbsp;<i>Browse...</i>&nbsp;&nbsp;</span>
+                            <input id="uploadBtn" type="file" style="float:left;" class="upload" nv-file-select uploader="vm.uploader" ng-click="vm.uploader.clearQueue()" onclick="this.value = null" required/>
+                        </div>
+                        <br/>
+                    </div>
+
+                    <!-- Format (dropdown -->
+                    <label style="margin-top: -6px;" for="format"><h4 style="color:grey; font-size: 23px;">Format<animatecolor style="color:red; font-size: 15px;"> *</h4></label>
+                    <select ng-click="vm.initService()" id="format" name="format" class="form-control" style="width: 260px;" ng-model="vm.formfile.format" placeholder="--Please select--" required>
+                        <option value="" class="italic" style="background-color:#E5E5E5">-- Select your format --</option>
+                        <option value="option1">FITS - CoRoT</option>
+                        <option value="option2">Autres FITS</option>
+                        <option value="option3">PNG</option>
+                        <option value="option4">JPEG</option>
+                        <option value="option5">BMP, etc.</option>
+                    </select>
+                    <br/>
+
+                    <!-- Description (textarea) -->
+                    <label style="margin-top: -6px;" for="description"><h4 style="color:grey; font-size: 23px;">Description</h4></label>
+                    <textarea ng-focus="vm.initService()" class="form-control" id="description" name="description" ng-model="vm.formfile.description" rows="3" cols="30" style="resize: none; width: 260px" placeholder="Optional field (120 characters max.)" ng-maxlength="120"></textarea><br/><br/>
+
+                    <!-- Progress Bar -->
+                    <div class="progress" style="border-radius: 0px; height: 17px;">
+                        <div id="progressbar" name="progressbar" class="progress-bar progress-bar-striped progress-bar-{{type}} active" value="dynamic" role="progressbar" ng-style="{ 'width': vm.uploader.progress + '%' }">
+                            <b>{{labelsuccess}}{{vm.uploader.progress}}%</b>
+                        </div>
+                    </div>
+
+                    <!-- footer -->  
+
+                    <button style="visibility: hidden; width: 210px;"></button> <!-- Bouton invisible pour aligner correctement sans footer -->
+                    <button style="border-radius:0%; width:145px; border:0px; background: grey;" type="button" class="btn btn-success btn-s textGraved greenPulseButton" ng-if="myForm.$invalid" disabled><!-- Faux boutton 'formulaire incomplet' -->
+                        <span class="glyphicon glyphicon-warning-sign redPulseEffect" style="font-size:20px;"><br> <b style="font-size:16px; font-family: calibri;">incomplete forms</b></span>
+                    </button>
+                    <button style="border-radius:0%; width:145px; border:0px;" type="button" class="btn btn-success btn-s textGraved shadowBox" ng-click="vm.uploader.uploadAll()" ng-disabled="myForm.$invalid" ng-if="myForm.$valid"> <!-- ng-disabled="myForm.$invalid" -->
+                        <span class="glyphicon glyphicon-upload spin" style="font-size:20px;"></span><br> <b>Open</b>
+                    </button>
+                    <!-- Reset -->
+                    <button style="border-radius:0%; width:70px; border:0px;" type="button" class="btn btn-info btn-s textGraved shadowBox" ng-click="vm.cancelAll()">
+                        <span class="glyphicon glyphicon-refresh spin" style="font-size:20px;"></span><br> <b>Reset</b>
+                    </button>
+                    <!-- Cancel (avec appel d'une fonction parente contenue dans le controller de la modale) -->
+                    <button style="border-radius:0%; width:70px; border:0px;" type="button" class="btn btn-warning btn-s textGraved shadowBox" ng-click="$parent.vm.close()">
+                        <span class="glyphicon glyphicon-remove spin" style="font-size:20px;"></span><br> <b>Close</b>
+                    </button>
+
+                    <!-- LABELS TEST VALEUR VARIABLES -->
+                    <!--                    <p>info valeur de init : {{init}}</p>
+                                        <p class="ng-binding">info queue length: {{vm.uploader.queue.length}}</p>-->
+                    <!--                    <p>renvoi le nom du fichier après un upload success : <br/> Name : {{name}} <br/> CurveName : {{curveName}} <br/> Format : {{format}} <br/> Description : {{description}}</p>-->
+                    <!--                    <p>idem en liste :</p><br/>
+                                        <div ng-repeat="curve in vm.curves">
+                                            <ul>
+                                                <li>{{curve.name}}{{curve.curveName}}</li>
+                                            </ul>
+                                        </div>-->
+                </form>
+            </div>
+        </tab>
+
+        <!-- Onglet Workspace -->
+        <tab select="workspace" class="tabsize">
+            <tab-heading>
+                <i class="fa fa-cloud"> Workspace</i>
+            </tab-heading>
+            <!-- Contenu Onglet Workspace --> /!\ Under Construction /!\
+        </tab>
+
+        <!-- Onglet VO -->
+        <tab select="vo()" class="tabsize">
+            <tab-heading>
+                <i class="fa fa-globe"> Virtual Observatory</i>
+            </tab-heading>
+            <!-- Contenu Onglet VO --> /!\ Under Construction /!\
+        </tab>
+    </tabset>
+</div>       

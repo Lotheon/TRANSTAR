@@ -1,0 +1,34 @@
+<div class="modal-header" >
+    <h2 class="modal-title"><b class="textGraved">Sign in.</b></h2>
+</div>
+</br>
+
+<div style="margin: 15px;">
+<form>
+    <div>
+        <label style="margin-bottom: -15px; margin-left: 10px;" for="username"><h4 style="color:grey; font-size: 23px;">Login<animatecolor style="color:red; font-size: 15px;"> *</h4></label>
+        <input id="username" name="username" type="text" class="form-control" ng-model="vm.username" style="width: 270px; border-radius: 0px;" placeholder="Your username" ng-maxlength="50" autofocus focus required><br/>
+    </div>
+    <div>
+        <label style="margin-bottom: -15px; margin-left: 10px;" for="password"><h4 style="color:grey; font-size: 23px;">Password<animatecolor style="color:red; font-size: 15px;"> *</h4></label>
+        <input id="password" name="password" type="password" class="form-control" ng-model="vm.password" style="width: 270px; border-radius: 0px;" placeholder="Your password" ng-maxlength="50" required><br/>
+    </div>
+    <div class="checkbox" style="margin-left: 20px;">
+    <input style="border-radius: 0px;" id="cbRemember" name="cbRemember" type="checkbox" value="cb1"><i style="margin-left: 0px; color: grey; font-size: 12px;">Remember me.</i>
+    </div>
+</form>
+
+<pre style="border-radius: 0px; border-style: dashed;">
+    Token key : {{ vm.jwt }}
+</pre>
+    
+</div>
+
+<div class="modal-footer">
+    <button style="border-radius:0%; width:188px; border:0px;" type="button" class="btn btn-info btn-s textGraved shadowBox" ng-click="vm.login()">
+        <span class="glyphicon glyphicon-user spin" style="font-size:20px;"></span><br> <b>Login</b>
+    </button>
+    <button style="border-radius:0%; width:70px; border:0px;" type="button" class="btn btn-warning btn-s textGraved shadowBox" ng-click="vm.close()">
+        <span class="glyphicon glyphicon-remove spin" style="font-size:20px;"></span><br> <b>Close</b>
+    </button>
+</div>

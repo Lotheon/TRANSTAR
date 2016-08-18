@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html ng-app="transtar" ng-strict-di>
+    <head>
+        <title>Transtar</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+        <link rel="stylesheet" href="css/dashboard.css">
+        <link rel="stylesheet" href="css/transtar.css">
+        <link rel="stylesheet" href="css/colorpick.css">
+        <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+        <link rel="icon" type="image/x-icon" href="img/favicon.ico.png"/>
+    </head>
+
+    <body ng-controller="LoginScreenController as vm" style="overflow: hidden;">
+
+        <!-- Page de substitution : tant que l'authentification n'est pas valide - chargée en même temps que l'autre (pas de view) -->
+        <div ng-if="vm.jwt">
+            <nav class="navbar navbar-inverse navbar-fixed-top" style="background-color: #333;">
+                <div class="navbar-header">
+                    <i style="background: #333; width: 175px; height: 50px; border: 0px; margin-left:25px; font-size: 40px; font-variant: small-caps; color: whitesmoke;" href="#" class="navbar-brand">transt<b style="color: red;">&#9734;</b>r</i>
+                </div>
+                <div>
+                    <div id="navbar" class="navbar-collapse collapse" >
+                        <div class="nav navbar-nav navbar-right" >
+                            <form name="formLogin">
+                                <ul class="nav navbar-nav navbar-right">
+                                    <li>
+                                        <!-- <label style="width: 60px; margin-top: 0px;" for="username"><h4 style="color: grey; font-size: 23px;">Login</4></label>-->
+                                        <label style="width: 35px; margin-top: 10px;" for="username"><span class="fa fa-user" style="color: grey; font-size: 30px;"></span></label>
+                                    </li>
+                                    <li>
+                                        <input style="width: 170px; border-radius: 0px; margin-right: 10px; margin-top: 8px; font-size: 16px;" id="username" name="username" type="text" class="form-control" ng-model="vm.username" placeholder="Login" ng-maxlength="50" required>
+                                    </li>
+                                    <li>
+                                        <!--  <label style="width: 105px; margin-top: 0px;" for="password"><h4 style="color: grey; font-size: 23px;">Password</4></label>-->
+                                        <label style="width: 35px; margin-top: 10px;" for="username"><span class="fa fa-key" style="color: grey; font-size: 30px;"></span></label>
+                                    </li>
+                                    <li>
+                                        <input style="width: 170px; border-radius: 0px; margin-top: 8px; margin-right: 5px; font-size: 16px;" id="password" name="password" type="password" class="form-control" ng-model="vm.password" placeholder="Password" ng-maxlength="50" onkeypress="if (event.keyCode == 13) vm.login()" required>
+                                    </li>
+                                    <li style="float: left; margin-right: 100px;">
+                                        <button style="border-radius:0%; width: 100px; margin-top: 8px; border:0px; height: 34px;" type="button" class="btn btn-danger btn-s textGraved shadowBox" ng-if="formLogin.$invalid" disabled>
+                                            <span class="fa fa-thumbs-down spin" style="font-size:12px;"></span> <b> Sign in</b>
+                                        </button>
+                                        <button style="border-radius:0%; width: 100px; margin-top: 8px; border:0px; height: 34px;" type="button" class="btn btn-danger btn-s textGraved shadowBox" ng-click="vm.login()" ng-disabled="formLogin.$invalid" ng-if="formLogin.$valid">
+                                            <span class="fa fa-thumbs-up spin" style="font-size:12px;"></span> <b> GO !</b>
+                                        </button>
+                                    </li> 
+                                </ul>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <div id="background" style="overflow: hidden;">
+                <img src="img/whiteSpace.jpg" class="background" alt="background image" style="overflow: hidden;"/>
+
+                <pre class="textGraved shadowBox" style="border-radius: 10px; margin-top: 50px; margin-right: 25px; margin-left: 25px; height: 160px; background-color: rgba(255,255,255,0.1); overflow: hidden;">
+                <span class="" style="font-size: 30px; color: white;">
+                    <i style="margin-left: -300px;">Please sign in using the form on the top-right of your screen.</i>
+                </span>
+<!--            Token key : {{vm.jwt}}-->
+                </pre>
+                
+            </div>
+        </div>
+        <footer ng-controller="FooterController as vm" style="background-color: grey; position: absolute; bottom: 0; height: 30px; width: 100%; overflow: hidden; z-index: 2;">
+            <div style="margin-left: 10px; margin-top: 5px; float: left;">V.<span app-version>{{app-version}}</span></div>
+            <div style="margin-right: 10px; margin-top: 5px; float: right;"> © Laboratoire d'Astrophysique de Marseille - CNRS {{vm.date | date:'yyyy'}}</div>
+        </footer>
+        <!-- FIN PAGE DE SUBSTITUTION !!! -->
+
+        <!-- MENU bar fixée en haut de la page -->
+        <div ng-if="!vm.jwt"> <!-- Div existe quand token d'authentification existe -->
+
+            <nav class="navbar navbar-inverse navbar-fixed-top" style="background-color: #333;">
+                <!-- Bouton pour fixer ouverture/fermeture sidebar -->
+                <a class="navbar-left">
+                    <!--                                <div class="btn btn-warning">
+                                                        <span class="glyphicon glyphicon-menu-hamburger" style="color: white;"></span>
+                                                    </div>-->
+                    <button type="button" style="padding:0px; border:0px; width: 52px;height: 50px; background-color: #333">
+                        <span class="fa fa-bars" style="color: white; font-size:18px;"></span>
+                    </button>
+                </a>
+                <div class="container-fluid">
+                    <a class="navbar-left">
+                        <div class="navbar-header">
+                            <!-- Bouton responsive de menu -->
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+
+                            <!--                        <div style="background: red; width: 155px; height: 50px; border: 0px;">-->
+                            <a style="background: #333; width: 175px; height: 50px; border: 0px; margin-left:25px; font-size: 40px; font-variant: small-caps; color: whitesmoke;" href="#" class="navbar-brand"><i>transt<b style="color: orangered;">&#9734;</b>r</i></a>
+                            <!--                        </div>-->
+                        </div>
+
+                        <!-- Boutons "Home", "Documentation" et "Contacts" avec sa modal -->
+                        <div id="navbar" class="navbar-collapse collapse" ng-controller="MenuController as vm">
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a href="index.html"><i class="glyphicon glyphicon-home"></i> Home</a></li>
+                                <li><a href="#"><i class="glyphicon glyphicon-file"></i> Documentation</a></li>
+                                <li><a ng-click="vm.openContacts()"><i class="glyphicon glyphicon-envelope"></i> Contacts</a></li>
+                                <!--                        <li><a ng-click="vm.openLogin()"><i class="glyphicon glyphicon-user"></i> Login</a></li>-->
+                            </ul>
+                        </div>
+
+                </div>
+            </nav>
+
+            <!-- BODY -->
+            <div class="container-fluid">
+                <div class="row">
+
+                    <!-- SIDEBAR -->
+                    <nav class="menu" ng-controller="CurvesController as vm">
+                        <span class="iconNewCurve"></span>
+                        <!-- Bouton New Curve (ouverture modal) -->
+                        <div class="btn btn-warning btn-new-curve" style="border-radius:0%;" ng-click="vm.openModalNewCurve()"><ul><h2><b>New curve</b></h2></ul>
+                        </div>
+
+                        <!-- Liste déroulante -->
+                        <ul class="">
+                            <!-- CURVES accordion -->
+                            <div class="btn btn-default btn-block" style="border-radius:0%;"><h4>Curves</h4></div>
+                            <div>    
+                                <div ng-repeat="curve in vm.curves">
+                                    <div class="btn-group" dropdown>
+                                        <button style="border-radius:0%; width:221px;" type="button" class="btn btn-info" ng-click="vm.setSelectedCurve(curve)" style="text-align: center;">{{curve.name}}</button>
+                                        <button style="border-radius:0%; width:32px;" type="button" class="btn btn-info dropdown-toggle" dropdown-toggle>
+                                            <i class="fa fa-chevron-right"></i>
+                                            <span class="sr-only">Toggle Dropdown</span>
+                                        </button>
+                                        <!-- Liste mise-à-jour d'upload -->
+                                        <ul class="dropdown-menu dropdown-menu-left " role="menu" style="background:grey;">
+                                            <li><a class="fa fa-download" href="http://localhost:63342/transtar-server/png.php?color={{vm.color}}" download="{{curve.name}}">&nbsp;&nbsp;&nbsp;&nbsp; Download</a></li>
+                                            <li><a class="fa fa-eye" ng-click="vm.visible_Curve(curve)">&nbsp;&nbsp;&nbsp;&nbsp; Hide/Show</a></li>
+                                            <li><a class="fa fa-files-o" ng-click="vm.copyO(curve)">&nbsp;&nbsp;&nbsp;&nbsp; Duplicate</a></li>
+                                            <li role="separator" class="divider"></li>
+                                            <li><a class="fa fa-times-circle" ng-click="vm.del(curve)">&nbsp;&nbsp;&nbsp;&nbsp; Remove</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- PERIODOGRAMS accordion -->
+                            <div class="btn btn-default btn-block" style="border-radius:0%;"><h4>Periodograms</h4></div>
+                            <ul class="nav-nav">
+                            </ul>
+                            <!-- PHASE CURVES accordion -->
+                            <div class="btn btn-default btn-block" style="border-radius:0%;"><h4>Phase curves</h4></div>
+                            <ul class="nav-nav">
+                            </ul>
+                        </ul>
+                    </nav>
+
+                    <!-- FIN SIDEBAR -->
+
+                    <!-- Image + propriétés -->
+                    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                        <!-- Représentation graphique des courbes -->
+                        <div class="row placeholders">
+                            <div class="col-xs-12 placeholder">
+                                <img src="img/PyKEprimerFigC2.png" class="img-responsive" alt="Courbe de lumiere test">
+                            </div>
+                        </div>
+
+                        <hr />
+
+                        <!-- Propriétés de la courbe sélectionnée -->
+                        <!--                    <div class="row placeholders">
+                                                <div class="col-xs-12 col-md-6 placeholder">
+                                                    <div class="form-group">
+                                                        <label for="line-color">Line color</label>
+                                                        <colorpick></colorpick>
+                                                                                        <input type="text" class="form-control" id="line-color">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="line-style">Line style</label>
+                                                        <input type="text" class="form-control" id="line-style">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="line-thickness">Line thickness</label>
+                                                        <input type="text" class="form-control" id="line-thickness">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="point-style">Point style</label>
+                                                        <input type="password" class="form-control" id="point-style">
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-12 col-md-6 placeholder">
+                                                    <div class="row">
+                                                        <div class="col-xs-12">
+                                                            <h4>Filters</h4>
+                                                            <ul class="nav nav-sidebar">
+                                                                <li><a href="#">Filter 1</a></li>
+                                                                <li><a href="#">Filter 2</a></li>
+                                                                <li><a href="#">Filter 3</a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-xs-12">
+                                                            <h4>Analyzes</h4>
+                                                            <ul class="nav nav-sidebar">
+                                                                <li><a href="#">Analysis 1</a></li>
+                                                                <li><a href="#">Analysis 2</a></li>
+                                                                <li><a href="#">Analysis 3</a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>-->
+
+
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- FOOTER (panelDown) -->
+
+            <div class="panelDown" ng-controller="PropertiesController as vm">
+
+                <div ng-if="vm.selectedCurve.curve.name" class="textGravedDeep" style="margin-right: 3px; width:100%; height: 100%; background-color:  #E6E6E6; color: #CFCFCF; text-align: left; font-size: 120px; font-weight: bold;"><span style="font-size: 95px; margin-left: 25px; margin-top: 60px;" class="glyphicon glyphicon-warning-sign"></span>&nbsp; Select a curve !</div>
+                <!-- tabset s'affiche à la place de la div précédente si une courbe est sélectionnée -->
+                <tabset ng-if="!vm.selectedCurve.curve.name">
+                    <tab select="Action" class="tabsize">
+                        <tab-heading>
+                            <i class="glyphicon glyphicon-screenshot" style="font-size: 17px;">&nbsp;Actions</i>
+                        </tab-heading><br/>
+
+                        <!--<p style='color: red;'>Test objet : {{vm.selectedCurve}}</p>-->
+
+                        <!-- Container Div gauche -->
+                        <div style="float: left; width: 45%; margin-left: 1%; border-right: 1px solid #CFCFCF;">
+
+                            <!-- Line Color -->
+                            <label style="margin-top: -6px;" for="color"><h4 style="color:grey; font-size: 23px;">Line color </h4></label>
+                            <!--                    <div style="margin-top: 8px;">
+                                                    <input id="color" name="color" type="color" value="#000000" placeholder="#000000" list="colors" pattern="#[a-f0-9]{6}" ng-model="vm.selectedCurve.curve.lineColor"/>
+                                                     Pattern utile car input de type text non reconnu par anciens navigateurs 
+                                                     Possibilité de mettre un datalist ici (avec ref en hexa) pour choisir les couleurs par défaut du panel 
+                                                    {{vm.selectedCurve.curve.lineColor}}
+                                                </div>-->
+
+                            <div class="btn-group">
+                                <label style="height: 34px; width: 170px; border-radius: 0px; border-bottom-left-radius: 20px; border-top-left-radius: 20px; border-color: #cccccc" class="btn btn-block">{{vm.selectedCurve.curve.lineColor}}</label>
+                                <input style="height: 34px; background-color: #e5e5e5; border-top-right-radius: 3px; border-bottom-right-radius: 4px; border: none;" id="color" name="color" type="color" value="#000000" placeholder="#000000" list="colors" pattern="#[a-f0-9]{6}" ng-model="vm.selectedCurve.curve.lineColor"/>
+                            </div>
+
+                            <br/><br/><br/>
+
+                            <!-- Line Thickness -->
+
+                            <!--                                            <div oninput="rangeValue.value=lineThickness.value">-->
+                            <label style="margin-top: -6px;" for="lineThickness"><h4 style="color:grey; font-size: 23px;">Line thickness </h4></label>
+
+                            <!--                        <output for="lineThickness" id="rangeValue" name="rangeValue">0</output>-->
+                            <!--                    <span style="width: 35px;">-->
+                            <!--                        <output style="margin-top: 5px; margin-right: 5px; width: 52px;" id="rangeValue" name="rangeValue" disabled="disabled">0 %</output>-->
+                            <label class="btn btn-block" style="margin-top: -6px; margin-right: 5px; width: 50px; height: 50px; border-radius: 50%; padding-left: 8px; padding-top: 12px; border-color: #cccccc;" id="rangeValue" name="rangeValue" readonly><b style="font-size: 18px; font-family: impact; text-align: center;">{{vm.selectedCurve.curve.lineThickness}}</b>%</label>
+                            <!--                    </span>-->
+                            <div style="margin-top: 15px;">
+                                <!--                        <input id="lineThickness" name="lineThickness" class="range" type="range" min="0" max="100" value="0" step="10" list="numbers" onmousemove="rangeValue.value = value + ' %'" style="width: 215px;" ng-model="vm.selectedCurve.curve.lineThickness"/>-->
+                                <input id="lineThickness" name="lineThickness" type="range" value="0" max="100" min="0" step="10" list="numbers" onchange="rangeValue.value = value + ' %'" onmousemove="rangeValue.value = value + ' %'" style="width: 202px; color: #BABABA; margin-top: -10px;" ng-model="vm.selectedCurve.curve.lineThickness">
+                                <datalist id="numbers">
+                                    <option>0</option>
+                                    <option>10</option>
+                                    <option>20</option>
+                                    <option>30</option>
+                                    <option>40</option>
+                                    <option>50</option>
+                                    <option>60</option>
+                                    <option>70</option>
+                                    <option>80</option>
+                                    <option>90</option>
+                                    <option>100</option>
+                                </datalist>
+                            </div>
+
+                            <br/><br/>
+
+                        </div>
+
+                        <!-- container Div droite -->
+                        <div style="float: left; width: 45%; margin-left: 5%">
+
+                            <!-- Line Style -->
+                            <label style="margin-top: -6px;" for="lineStyle"><h4 style="color:grey; font-size: 23px;">Line style </h4></label>
+                            <select id="lineStyle" name="lineStyle" class="form-control" style="width: 260px; border-bottom-left-radius: 20px; border-top-left-radius: 20px;" placeholder="--Select line style--" ng-model='vm.selectedCurve.curve.lineStyle'>
+                                <option value="" class="italic" style="background-color:#E5E5E5">-- Select line style --</option>
+                                <option value="lineStyle1">--</option>
+                                <option value="lineStyle2">-</option>
+                                <option value="lineStyle3">.</option>
+                            </select>
+                            {{vm.selectedCurve.curve.lineStyle}}
+                            <br/><br/>
+
+                            <!-- Point Style -->
+                            <label style="margin-top: -6px;" for="pointStyle"><h4 style="color:grey; font-size: 23px;">Point style </h4></label>
+                            <select id="pointStyle" name="pointStyle" class="form-control" style="width: 260px; border-bottom-left-radius: 20px; border-top-left-radius: 20px;" placeholder="--Select point style--" ng-model='vm.selectedCurve.curve.pointStyle'>
+                                <option value="" class="italic" style="background-color:#E5E5E5">-- Select point style --</option>
+                                <option value="pointStyle1">O</option>
+                                <option value="pointStyle2">*</option>
+                            </select>
+                            {{vm.selectedCurve.curve.pointStyle}}
+                            <br/>
+
+                        </div>
+
+                    </tab>
+
+                    <tab select="Filters" class="tabsize">
+                        <tab-heading>
+                            <i class="glyphicon glyphicon-filter" style="font-size: 17px;">&nbsp;Filters</i>
+                        </tab-heading>
+                        <!-- Contenu onglet -->
+
+                        <form style="padding: 10px;">
+                            <button style="border-radius:0%; width:150px; height: 160px; border:0px;" type="button" class="btn btn-info textGraved shadowBox" ng-click="">
+                                <span class="glyphicon glyphicon-plus-sign spin" style="font-size:40px;"></span><br> <b style="font-size: 22px;">New filter</b>
+                            </button>
+                        </form>
+
+                    </tab>
+
+                    <tab select="Analyzes" class="tabsize">
+                        <tab-heading>
+                            <i class="glyphicon glyphicon-stats" style="font-size: 17px;">&nbsp;Analyzes</i>
+                        </tab-heading>
+                        <!-- Contenu onglet -->
+
+                        <form style="padding: 10px;">
+                            <button style="border-radius:0%; width:150px; height: 100px; border:0px;" type="button" class="btn btn-info textGraved shadowBox" ng-click="">
+                                <span class="glyphicon glyphicon-plus-sign spin" style="font-size:40px;"></span><br> <b style="font-size: 22px;">New analyze</b>
+                            </button>
+                        </form>
+
+                    </tab>
+                </tabset>
+            </div>
+        </div>
+
+
+
+        <script src="bower_components/angularjs/angular.js"></script>
+        <script src="bower_components/angular-bootstrap/ui-bootstrap.js"></script>
+        <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+        <script src="bower_components/angular-file-upload/dist/angular-file-upload.min.js"></script>
+        <script src="js/app.js"></script>
+
+        <!-- MENU -->
+        <script src="js/menu/menu.module.js"></script>
+        <script src="js/menu/menu.controller.js"></script>
+        <script src="js/menu/modal-contacts.controller.js"></script>
+        <script src="js/menu/modal-login.controller.js"></script>
+        <script src="js/menu/login-screen.controller.js"></script>
+        <script src="js/menu/footer.controller.js"></script>
+
+        <!-- CURVES -->
+        <script src="js/curves/curves.module.js"></script>
+        <script src="js/curves/curves.controller.js"></script>
+        <script src="js/curves/curve.object.js"></script>
+        <script src="js/curves/curve.factory.js"></script>
+        <script src="js/curves/selected-curve.service.js"></script>
+        <!-- Module New Curve -->
+        <script src="js/curves/modal.newCurve.controller.js"></script>
+        <!-- Module FileChange (événement bouton de sélection du fichier à uploader) -->
+        <script src="js/curves/fileChange-directive.js"></script>
+        <script src="js/curves/fileChange-controller.js"></script>
+        <!-- Module CustomOnDrop (pour appeler méthode ClearQueue() à l'événement du drop -->
+        <script src="js/curves/customOnDrop-directive.js"></script>
+        <!-- Module FileUpload -->
+        <script src="js/curves/fileUpload-controller.js"></script>
+        <!-- Module PropertiesController -->
+        <script src="js/curves/propreties.controller.js"></script>
+
+        <!-- FILTERS -->
+        <script src="js/filters/filters.module.js"></script>
+        <script src="js/filters/filter.object.js"></script>
+        <script src="js/filters/filter.factory.js"></script>
+
+        <!-- ANALYZES -->
+        <script src="js/analyzes/analyzes.module.js"></script>
+        <script src="js/analyzes/analysis.object.js"></script>
+        <script src="js/analyzes/analysis.factory.js"></script>
+
+        <!-- PLOT -->
+        <script src="js/plot/plot.module.js"></script>
+
+        <!-- COLORPICK -->
+        <script src="js/colorpick/colorpick.module.js"></script>
+        <script src="js/colorpick/colorpick.directive.js"></script>
+
+    </body>
+</html>
